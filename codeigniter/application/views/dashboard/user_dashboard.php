@@ -1,12 +1,21 @@
+<?php if($this->session->flashdata('transaction')){ ?>
+    <div class="alert alert-success">
+        <?php echo $this->session->flashdata('transaction'); ?>
+    </div>
+<?php } ?>
+
+
 <!DOCTYPE html>
 <!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
     <!--<title> Responsiive Admin Dashboard | CodingLab </title>-->
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style type="text/css">
@@ -18,6 +27,192 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
+
+
+/* ***********************style.css file css********************************** */
+
+html, body {
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+}
+body {
+
+  background: linear-gradient(135deg, #FAB2FF 10%, #1904E5 100%);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: "Open Sans", sans-serif;
+  color: #333333;
+}
+
+.box-form {
+  /*margin: 0 auto;*/
+  margin-top: 4%;
+  margin-left: 20%;
+  width: 60%;
+  height: 80%;
+  background: #FFFFFF;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex: 1 1 100%;
+  align-items: stretch;
+
+  justify-content: space-between;
+  box-shadow: 0 0 20px 6px #090b6f85;
+}
+@media (max-width: 980px) {
+  .box-form {
+    flex-flow: wrap;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+  }
+}
+.box-form div {
+  height: auto;
+}
+.box-form .left {
+  color: #FFFFFF;
+  height: 40%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("https://i.pinimg.com/736x/5d/73/ea/5d73eaabb25e3805de1f8cdea7df4a42--tumblr-backgrounds-iphone-phone-wallpapers-iphone-wallaper-tumblr.jpg");
+  overflow: hidden;
+}
+.box-form .left .overlay {
+  padding: 30px;
+  width: 100%;
+  height: 100%;
+  background: #5961f9ad;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.box-form .left .overlay h1 {
+  font-size: 7vmax;
+  line-height: 1;
+  font-weight: 900;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.box-form .left .overlay span p {
+  margin-top: 30px;
+  font-weight: 900;
+}
+.box-form .left .overlay span a {
+  background: #3b5998;
+  color: #FFFFFF;
+  margin-top: 10px;
+  padding: 14px 50px;
+  border-radius: 100px;
+  display: inline-block;
+  box-shadow: 0 3px 6px 1px #042d4657;
+}
+.box-form .left .overlay span a:last-child {
+  background: #1dcaff;
+  margin-left: 30px;
+}
+.box-form .right {
+  padding: 40px 40px 0px 40px;
+  overflow: hidden;
+}
+@media (max-width: 980px) {
+  .box-form .right {
+    width: 100%;
+  }
+}
+.box-form .right h5 {
+  font-size: 6vmax;
+  line-height: 0;
+}
+.box-form .right p {
+  font-size: 14px;
+  color: #fff;
+}
+.box-form .right .inputs {
+  overflow: hidden;
+}
+.box-form .right input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 9px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #B0B3B9;
+}
+.box-form .right button {
+  float: right;
+  color: #000;
+  margin-bottom: 20px;
+  font-size: 16px;
+  padding: 12px 50px;
+  border-radius: 50px;
+  display: inline-block;
+  border: 0;
+  outline: 0;
+  box-shadow: 0px 4px 20px 0px #49c628a6;
+  background-image: linear-gradient(135deg, #70F570 10%, #49C628 100%);
+}
+
+label {
+  display: block;
+  position: relative;
+  margin-left: 30px;
+}
+
+/*label::before {
+  content: ' \f00c';
+  position: absolute;
+  font-family: FontAwesome;
+  background: transparent;
+  border: 3px solid #70F570;
+  border-radius: 4px;
+  color: transparent;
+  left: -30px;
+  transition: all 0.2s linear;
+}*/
+
+/*label:hover::before {
+  font-family: FontAwesome;
+  content: ' \f00c';
+  color: #fff;
+  cursor: pointer;
+  background: #70F570;
+}*/
+
+/*label:hover::before .text-checkbox {
+  background: #70F570;
+}
+
+label span.text-checkbox {
+  display: inline-block;
+  height: auto;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s linear;
+}
+
+label input[type="checkbox"] {
+  display: none;
+}*/
+
+/* *************************************************************************** */
+
+
+
+
+
+
+
+
+
+
+
 .sidebar{
   position: fixed;
   height: 100%;
@@ -510,6 +705,11 @@ body {
   background:#ddd;
 }
 
+/* loading animation */
+
+#loading {
+  display: none;
+}
 </style>
 
 </head>
@@ -592,18 +792,20 @@ body {
         <i class='bx bx-menu sidebarBtn'></i>
         <span class="dashboard">Dashboard</span>
       </div>
-      <div class="search-box">
+      <!-- <div class="search-box">
         <input type="text" placeholder="Search...">
         <i class='bx bx-search' ></i>
-      </div>
-      <div class="profile-details">
-        <!-- <img src="images/profile.jpg" alt=""> -->
-        <span class="admin_name">ADMIN NAME</span>
+      </div> -->
+      <button class="btn btn-primary" onclick="connectWeb3();">Recharge Wallet</button>
+      <!-- <div class="profile-details">
+         <img src="images/profile.jpg" alt="">
+         <span class="admin_name">ADMIN NAME</span>
         <i class='bx bx-chevron-down' ></i>
-      </div>
+      </div> -->
     </nav>
-
+    
     <div class="home-content">
+    
       <div class="overview-boxes">
         <!-- <div class="box">
           <div class="right-side">
@@ -728,10 +930,130 @@ body {
         </div>
       </div>
     </div>
-  </section>
+</section>
+<div id="loading"></div>
+<script type="text/javascript">
+  var web3;
+  var txnId;
+    // window.addEventListener('load', async () => {
+    //    if (window.ethereum) {
+    //     window.web3 = new Web3(ethereum);
+    //     try {
+    //       await ethereum.enable();
+    //       initPayButton()
+    //       initGetButton()
+    //     } catch (err) {
+    //       $('#status').html('User denied account access', err)
+    //     }
+    //   } else if (window.web3) {
+    //     window.web3 = new Web3(web3.currentProvider)
+    //     initPayButton()
+    //   } else {
+    //     $('#status').html('No Metamask (or other Web3 Provider) installed')
+    //   }
+    // })
 
-  <script>
-   let sidebar = document.querySelector(".sidebar");
+    function connectWeb3(){
+       if (window.ethereum) {
+        window.web3 = new Web3(ethereum);
+        try {
+          ethereum.enable().then(function(){
+              initPayButton()
+            //   initGetButton()
+          });
+        } catch (err) {
+          $('#status').html('User denied account access', err)
+        }
+      } else if (window.web3) {
+        window.web3 = new Web3(web3.currentProvider)
+            initPayButton()
+      } else {
+        $('#status').html('No Metamask (or other Web3 Provider) installed')
+      }
+    }
+
+    const initPayButton = () => {
+        // paymentAddress is where funds will be send to
+        const paymentAddress = '0x7077A01bfaD89871f365BB01815bc517e19Aaf92'
+        const amountEth = '0.001'
+        web3.eth.sendTransaction({
+          from: web3.currentProvider.selectedAddress,
+          to: paymentAddress,
+          value: web3.utils.toWei(amountEth, 'ether'),
+        }, (err, transactionId) => {
+          if  (err) {
+            console.log('Payment failed', err)
+            $('#status').html('Payment failed')
+          } else {
+
+            console.log('Payment successful', transactionId)
+            txnId = transactionId;
+            async function checkTransactionStatus(txn_hash) {
+            // Continuously check the transaction status
+            setInterval(async () => {
+                // Get the transaction details
+                const tx = await web3.eth.getTransaction(txn_hash);
+                // Check if the transaction is mined
+                if (tx.blockNumber > 0) {
+                console.log(`Transaction ${txn_hash} is mined in block number ${tx.blockNumber}`);
+                $('#status').html('Payment successful')
+                initGetButton()
+                location.reload();
+                clearInterval();
+                } else {
+                console.log(`Transaction ${txn_hash} is not mined yet`);
+                }
+            }, 1000);  // check the status every 1 second
+            }
+
+            // Example usage
+            checkTransactionStatus(txnId);
+
+            
+          }
+         
+        })
+    }
+
+    const initGetButton = () => {
+            web3.eth.getTransaction(txnId, function(err, result) {
+            if (result) {
+            console.log(result)
+            console.log(web3.utils.fromWei(result.value, 'ether'))
+            const value = web3.utils.fromWei(result.value, 'ether')
+            const gas_price = web3.utils.fromWei(result.gasPrice, 'ether')
+            const gas = result.gas.toString();
+            var base_url = '<?php echo base_url('/transaction'); ?>';
+      	
+        	$.ajax({
+        		url:base_url,
+        		type:"POST",
+        		data : {
+        			"sender_id" : result.from,
+        			"receiver_id" : result.to,
+        			"txn_hash" : result.hash,
+        			"full_value" : result.value,
+        			"value" : value,
+        			"gas_price" : gas_price,
+        			"gas_used" : gas
+        		},
+        		datatype : 'json',
+        		success: function(data){
+        				console.log(data);
+        		},
+        		error: function(error){
+        		    console.log(error);
+        		}
+        	});
+            
+
+                
+            }
+            });
+    }
+</script>
+<script>
+let sidebar = document.querySelector(".sidebar");
 let sidebarBtn = document.querySelector(".sidebarBtn");
 sidebarBtn.onclick = function() {
   sidebar.classList.toggle("active");
@@ -740,9 +1062,14 @@ sidebarBtn.onclick = function() {
 }else
   sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
 }
+
  </script>
  <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
-
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js" integrity="sha256-nWBTbvxhJgjslRyuAKJHK+XcZPlCnmIAAMixz6EefVk=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 
 </html>
