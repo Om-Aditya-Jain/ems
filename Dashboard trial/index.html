@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Analytic Dashboard</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Pie Chart CSS -->
+
+    <style type="text/css">
+  
+@property --p{
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.pie {
+  --p:20;
+  --b:22px;
+  --c:darkred;
+  --w:150px;
+  
+  width:var(--w);
+  aspect-ratio:1;
+  position:relative;
+  display:inline-grid;
+  margin:5px;
+  place-content:center;
+  font-size:25px;
+  font-weight:bold;
+  font-family:sans-serif;
+}
+.pie:before,
+.pie:after {
+  content:"";
+  position:absolute;
+  border-radius:50%;
+}
+.pie:before {
+  inset:0;
+  background:
+    radial-gradient(farthest-side,var(--c) 98%,#0000) top/var(--b) var(--b) no-repeat,
+    conic-gradient(var(--c) calc(var(--p)*1%),#0000 0);
+  -webkit-mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+          mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+}
+.pie:after {
+  inset:calc(50% - var(--b)/2);
+  background:var(--c);
+  transform:rotate(calc(var(--p)*3.6deg)) translateY(calc(50% - var(--w)/2));
+}
+.animate {
+  animation:p 1s .5s both;
+}
+.no-round:before {
+  background-size:0 0,auto;
+}
+.no-round:after {
+  content:none;
+}
+@keyframes p {
+  from{--p:0}
+}
+
+body {
+  background:#ddd;
+}
+
+
+</style>
+  </head>
+
+  
+
+  <body>
+    <!-- Dashboard -->
+    <div class="dashboard">
+      <!-- Menu -->
+      <div class="menu flex-c">
+        <div class="logo">
+          <div class="icon">
+            <ion-icon name="logo-bitbucket"></ion-icon>
+          </div>
+        </div>
+
+        <div class="navigation">
+          <div class="icon">
+            <ion-icon name="filter-circle-outline"></ion-icon>
+          </div>
+
+          <div class="icon">
+            <ion-icon name="file-tray-full-outline"></ion-icon>
+          </div>
+
+          <div class="icon">
+            <ion-icon name="mail-unread-outline"></ion-icon>
+          </div>
+
+          <div class="icon">
+            <ion-icon name="pulse-outline"></ion-icon>
+          </div>
+
+          <div class="icon">
+            <ion-icon name="storefront-outline"></ion-icon>
+          </div>
+        </div>
+
+        <div class="settings">
+          <div class="icon">
+            <ion-icon name="settings-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+      <!-- End Menu -->
+
+      <div class="content">
+        <!-- Main Content -->
+        <div class="main-content">
+          <!-- Head -->
+          <div class="head flex">
+            <!-- <h1>Good Morning 👋</h1> -->
+
+            <div class="box flex time-period">
+              Energy Management System
+            </div>
+
+            <div class="box flex">
+              <ion-icon name="search-outline"></ion-icon>
+            </div>
+          </div>
+          <!-- End Head -->
+
+          <!-- Stats -->
+          <div class="stats flex">
+            <div class="stats box sales">
+              <h2 class="heading">Electricity Consumption</h2>
+              <br>
+              <canvas id="sales"></canvas>
+            </div>
+          </div>
+          <br>
+
+          <div class="stats-box earning">
+              <h2 class="heading">Remaining Balance</h2>
+              <br>
+              <div style="display:flex; justify-content: center;">
+            <div class="pie animate" style="--p:90;--c: darkgreen; text-align:center"> 90%</div>
+            </div>
+              <!-- <canvas id="earning"></canvas> -->
+            </div>
+
+              </div>
+        <!-- End Main Content -->
+
+        <!-- Profile -->
+        <div class="profile">
+          <div class="title flex">
+            <h2 class="heading">Profile</h2>
+            <div class="icon">
+              <ion-icon name="notifications-outline"></ion-icon>
+            </div>
+          </div>
+
+          <div class="user">
+            <img src="https://raw.githubusercontent.com/programmercloud/analytic-dashboard/main/img/avatar.png" alt="" />
+            <h2>Sneha Sanu Mathew</h2>
+            
+          </div>
+
+          <div class="activities">
+            <div class="title flex">
+              <h2 class="heading">Avtivity</h2>
+              <p>View All</p>
+            </div>
+          </div>
+
+          <div class="activity flex">
+            <div class="icon">
+              <ion-icon name="wallet-outline"></ion-icon>
+            </div>
+
+            <div class="task">
+              <h2>Earning Widrawal</h2>
+              <p>$125</p>
+            </div>
+            <div class="time">11:30 AM</div>
+          </div>
+
+          <div class="activity flex">
+            <div class="icon">
+              <ion-icon name="wallet-outline"></ion-icon>
+            </div>
+
+            <div class="task">
+              <h2>Website Taxes</h2>
+              <p>$95</p>
+            </div>
+            <div class="time">12:20 AM</div>
+          </div>
+
+          <div class="upgrade flex-c">
+            <div class="icon">
+              <ion-icon name="albums-outline"></ion-icon>
+            </div>
+
+            <p>Unlock more unique features by becoming a <span>PRO</span></p>
+          </div>
+
+          <div class="btn flex">Upgrade Now</div>
+        </div>
+        <!-- End Profile -->
+      </div>
+    </div>
+    
+             <!--   Youtube Turorial Link   -->
+    <a href="https://www.youtube.com/watch?v=GzthUlrwiJE" class="youtube" target="__blank">
+  <!-- <p>Watch Tutorial 🔥</p> -->
+</a>
+    <!-- End Dashboard -->
+    <!-- Ion Icons Js -->
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"
+    ></script>
+
+    <!-- Chart JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- JS -->
+    <script src="script.js"></script>
+  </body>
+</html>
