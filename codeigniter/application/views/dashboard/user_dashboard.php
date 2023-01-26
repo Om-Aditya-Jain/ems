@@ -1,9 +1,16 @@
 <?php
+
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
 ?>
+<?php 
+if($this->session->flashdata('Recharge')){ ?>
+    <div class="alert alert-success">
+        <?php echo $this->session->flashdata('Recharge'); ?>
+    </div>
+<?php } ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -138,23 +145,38 @@ body {
 
             <div>
             <a href="<?php echo base_url('recharge'); ?>" class="btn-lg btn-primary"><strong>Recharge Wallet</strong></a>
-            <!-- <button class="btn-lg btn-primary" onclick="connectWeb3();"><strong>Recharge Wallet</strong></button> -->
-              <!-- <ion-icon name="search-outline"></ion-icon> -->
-
             </div>
           </div>
           <!-- End Head -->
 
           <!-- Stats -->
           <br>
-          <div class="stats-box earning">
-              <h2 class="heading">Remaining Balance</h2>
-              <br>
+          
+          <div class="stats-box earning" style="display:flex; justify-content: space-around; flex-direction: row; width:100%">
+            <div class="stats-box earning">
+            <h2 class="heading">Remaining Balance</h2>
+                <br>
               <div style="display:flex; justify-content: center;">
-            <div class="pie animate" style="--p:90;--c: darkgreen; text-align:center"> 90%</div>
+                <div class="pie animate" style="--p:<?php echo ($user_balance[0]['energy_balance']/1000)*100; ?>;--c: darkgreen; text-align:center"><?php echo ($user_balance[0]['energy_balance']/1000)*100; ?>%</div>
+              </div>
             </div>
-              <!-- <canvas id="earning"></canvas> -->
+            <div class="stats-box earning" style="display:flex; justify-content: space-around; flex-direction: column;">
+            <div class="card" style="background:#33202c;color:white">
+                <h2 class="card-header">Remaining Energy</h2>
+                <div class="card-body">
+                  <h2 class="card-title"><?php echo $user_balance[0]['energy_balance']." Units"; ?></h2>
+                </div>
+              </div>
+              <div class="card" style="background:#33202c;color:white">
+                <h2 class="card-header">Remaining Ethers</h2>
+                <div class="card-body">
+                  <h2 class="card-title"><?php echo $user_balance[0]['ether_balance']." Ethers"; ?></h2>
+                </div>
+              </div>
             </div>
+          </div>
+
+
           <!-- <br> -->
           <div class="stats flex">
             <div class="stats box sales">
@@ -178,7 +200,7 @@ body {
 
           <div class="user">
             <img src="#" alt="" />
-            <h2>Sneha Sanu Mathew</h2>
+            <h2><?php echo $username; ?></h2>
             
           </div>
 
@@ -189,19 +211,29 @@ body {
             </div>
           </div>
 
+          <?php foreach($transactions as $t){ ?>
           <div class="activity flex">
             <div class="icon">
               <ion-icon name="wallet-outline"></ion-icon>
             </div>
 
             <div class="task">
-              <h2>Earning Widrawal</h2>
-              <p>$125</p>
+              <h2>Recharge Success</h2> 
+              <p><?php echo $t['value']." ethers"; ?></p>
             </div>
-            <div class="time">11:30 AM</div>
+            <!-- &emsp; -->
+            <div class="time"><?php 
+            $date1 = date('M j Y');
+            $date2 = date('M j Y', strtotime($t['timestamp']));
+            if($date1 == $date2){
+              echo date('g:i A', strtotime($t['timestamp']));
+            }else{
+              echo date('M j', strtotime($t['timestamp']));
+            }?>
+            </div>
           </div>
-
-          <div class="activity flex">
+          <?php } ?>
+          <!-- <div class="activity flex">
             <div class="icon">
               <ion-icon name="wallet-outline"></ion-icon>
             </div>
@@ -211,9 +243,9 @@ body {
               <p>$95</p>
             </div>
             <div class="time">12:20 AM</div>
-          </div>
+          </div> -->
 
-          <div class="upgrade flex-c">
+          <!-- <div class="upgrade flex-c">
             <div class="icon">
               <ion-icon name="albums-outline"></ion-icon>
             </div>
@@ -221,8 +253,8 @@ body {
             <p>Unlock more unique features by becoming a <span>PRO</span></p>
           </div>
 
-          <div class="btn flex">Upgrade Now</div>
-        </div>
+          <div class="BTN flex">Upgrade Now</div>
+        </div> -->
         <!-- End Profile -->
       </div>
     </div>
@@ -232,130 +264,6 @@ body {
   <!-- <p>Watch Tutorial 🔥</p> -->
 </a>
     <!-- End Dashboard -->
-
-<!-- JS Functions for connect wallet button -->
-<script type="text/javascript">
-  var web3;
-  var txnId;
-    // window.addEventListener('load', async () => {
-    //    if (window.ethereum) {
-    //     window.web3 = new Web3(ethereum);
-    //     try {
-    //       await ethereum.enable();
-    //       initPayButton()
-    //       initGetButton()
-    //     } catch (err) {
-    //       $('#status').html('User denied account access', err)
-    //     }
-    //   } else if (window.web3) {
-    //     window.web3 = new Web3(web3.currentProvider)
-    //     initPayButton()
-    //   } else {
-    //     $('#status').html('No Metamask (or other Web3 Provider) installed')
-    //   }
-    // })
-
-    function connectWeb3(){
-       if (window.ethereum) {
-        window.web3 = new Web3(ethereum);
-        try {
-          ethereum.enable().then(function(){
-              initPayButton()
-            //   initGetButton()
-          });
-        } catch (err) {
-          $('#status').html('User denied account access', err)
-        }
-      } else if (window.web3) {
-        window.web3 = new Web3(web3.currentProvider)
-            initPayButton()
-      } else {
-        $('#status').html('No Metamask (or other Web3 Provider) installed')
-      }
-    }
-
-    const initPayButton = () => {
-        // paymentAddress is where funds will be send to
-        const paymentAddress = '0x7077A01bfaD89871f365BB01815bc517e19Aaf92'
-        const amountEth = '0.001'
-        web3.eth.sendTransaction({
-          from: web3.currentProvider.selectedAddress,
-          to: paymentAddress,
-          value: web3.utils.toWei(amountEth, 'ether'),
-        }, (err, transactionId) => {
-          if  (err) {
-            console.log('Payment failed', err)
-            $('#status').html('Payment failed')
-          } else {
-
-            console.log('Payment successful', transactionId)
-            txnId = transactionId;
-            async function checkTransactionStatus(txn_hash) {
-            // Continuously check the transaction status
-            setInterval(async () => {
-                // Get the transaction details
-                const tx = await web3.eth.getTransaction(txn_hash);
-                // Check if the transaction is mined
-                if (tx.blockNumber > 0) {
-                console.log(`Transaction ${txn_hash} is mined in block number ${tx.blockNumber}`);
-                $('#status').html('Payment successful')
-                initGetButton()
-                location.reload();
-                clearInterval();
-                } else {
-                console.log(`Transaction ${txn_hash} is not mined yet`);
-                }
-            }, 1000);  // check the status every 1 second
-            }
-
-            // Example usage
-            checkTransactionStatus(txnId);
-
-            
-          }
-         
-        })
-    }
-
-    const initGetButton = () => {
-            web3.eth.getTransaction(txnId, function(err, result) {
-            if (result) {
-            console.log(result)
-            console.log(web3.utils.fromWei(result.value, 'ether'))
-            const value = web3.utils.fromWei(result.value, 'ether')
-            const gas_price = web3.utils.fromWei(result.gasPrice, 'ether')
-            const gas = result.gas.toString();
-            var base_url = '<?php echo base_url('/transaction'); ?>';
-      	
-        	$.ajax({
-        		url:base_url,
-        		type:"POST",
-        		data : {
-        			"sender_id" : result.from,
-        			"receiver_id" : result.to,
-        			"txn_hash" : result.hash,
-        			"full_value" : result.value,
-        			"value" : value,
-        			"gas_price" : gas_price,
-        			"gas_used" : gas
-        		},
-        		datatype : 'json',
-        		success: function(data){
-        				console.log(data);
-        		},
-        		error: function(error){
-        		    console.log(error);
-        		}
-        	});
-            
-
-                
-            }
-            });
-    }
-</script>
-
-
 
 
     <!-- Ion Icons Js -->
