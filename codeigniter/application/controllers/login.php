@@ -31,25 +31,56 @@ class Login extends CI_Controller {
 	public function login()
 	{
 		if(isset($_POST)){
-			$username = $_POST['username'];
-			$password = $_POST['password'];
-			$password_md5 = md5($password);
-			$check = $this->loginM->checkUser($username,$password_md5);
-			if(!empty($check)){
-				$_SESSION['user'] = $username;
-				// user login
-				if($check[0]['isadmin']==0){
-					// $this->load->view('dashboard/user_dashboard');
-					redirect(base_url('dashboard'));
+			if($_POST['login']=='Submit'){
+				$username = $_POST['username'];
+				$password = $_POST['password'];
+				$password_md5 = md5($password);
+				$check = $this->loginM->checkUser($username,$password_md5);
+				if(!empty($check)){
+					$_SESSION['user'] = $username;
+					// user login
+					if($check[0]['isadmin']==0){
+						// $this->load->view('dashboard/user_dashboard');
+						redirect(base_url('dashboard'));
+					}else{
+						redirect(base_url('dashboard/admin_dashboard'));
+					}
 				}else{
-					redirect(base_url('dashboard/admin_dashboard'));
+					redirect(base_url('login'));
 				}
 			}else{
-				redirect(base_url('login'));
+				$this->load->view('login/signup.php');
 			}
+			
 		}else{
 			redirect(base_url('login'));
 		}
 		
+	}
+
+	public function signup(){
+		if(isset($_POST)){
+			$first_name = $_POST['first_name'];
+			$last_name = $_POST['last_name'];
+			$birthday = $_POST['birthday'];
+			$gender = $_POST['gender'];
+			$email = $_POST['email'];
+			$phone = $_POST['phone'];
+			$username = $_POST['username'];
+			$password = $_POST['password'];
+
+			$user = $this->loginM->insert_user($first_name,$last_name,$birthday,$gender,$email,$phone,$username);
+			$encoded_password = md5($password);
+			$login = $this->loginM->insert_login($username,$encoded_password);
+			if($user && $login){
+				$this->session->set_flashdata('Register', 'Registration Successful');
+			}else{
+				$this->session->set_flashdata('Register', 'Registration Failed');
+			}
+
+			redirect(base_url('login'));
+		}else{
+			$this->load->view('login/signup.php');
+		}
 	}
 }
