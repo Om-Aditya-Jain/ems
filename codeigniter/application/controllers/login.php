@@ -36,12 +36,13 @@ class Login extends CI_Controller {
 			$password_md5 = md5($password);
 			$check = $this->loginM->checkUser($username,$password_md5);
 			if(!empty($check)){
-				$data['username'] = $username;
+				$_SESSION['user'] = $username;
 				// user login
 				if($check[0]['isadmin']==0){
-					$this->load->view('dashboard/user_dashboard',$data);
+					// $this->load->view('dashboard/user_dashboard');
+					redirect(base_url('dashboard'));
 				}else{
-					$this->load->view('dashboard/admin_dashboard',$data);
+					redirect(base_url('dashboard/admin_dashboard'));
 				}
 			}else{
 				redirect(base_url('login'));
