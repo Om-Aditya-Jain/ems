@@ -1,7 +1,13 @@
+<?php if($this->session->flashdata('Register')){ ?>
+    <div class="alert alert-success">
+        <?php echo $this->session->flashdata('Register'); ?>
+    </div>
+<?php } ?>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>EMS</title>
+    <title>EMS</title>  
 </head>
 <style>
 body{
@@ -164,6 +170,10 @@ h1 {
   <input type="text" name="username" placeholder="Username">
   <input type="password" name="password" placeholder="Password">
   <input type="submit" name="login" value="Submit" />  
+  <h4>Create new account</h4>
+  <input type="submit" name="login" value="Sign Up"/>  
+  
+  
     </div>
   </div>
 </form>
